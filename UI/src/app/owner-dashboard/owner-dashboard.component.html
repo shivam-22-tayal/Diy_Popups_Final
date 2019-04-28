@@ -1,0 +1,211 @@
+<div class="sticky-top">
+  <nav class="navbar navbar-expand navbar-dark bg-dark p-3">
+    <a routerLink="/" class="navbar-brand"
+      ><span class="h3">DIY POPUPS</span></a
+    >
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/">Home</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" (click)="logout()" style="cursor: pointer;">Logout</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<div class="col-2 bg-dark position-fixed" id="sticky-sidebar">
+  <div class="card bg-dark shadow text-center mt-5">
+    <div class="card-body">
+      <div class="card-text">
+        <img
+          src="../../assets/img/avatar.png"
+          alt="user image"
+          class="rounded-circle"
+          height="110"
+          width="110"
+        />
+      </div>
+      <div class="card-text text-white my-2">
+        <span class="h5">{{ currentUser.firstname }} {{ currentUser.lastname }}</span>
+      </div>
+    </div>
+  </div>
+
+<div>
+  <button
+    type="button"
+    class="btn btn-primary"
+    data-toggle="modal"
+    data-target="#exampleCreateAdd">
+    Create Your Ad
+  </button>
+</div>
+
+  <div class="card shadow text-center mybg mt-5">
+    <div class="card-body">
+      <div class="card-text">
+        <i class="fas fa-wallet fa-3x"></i>
+      </div>
+      <div class="card-text">
+        <div class="h4">
+          Your Credits
+        </div>
+      </div>
+      <div class="card-text my-5">
+        <span class="h2"
+          >{{ this.downcredits }}&nbsp;<em class="fas fa-coins text-warning"></em
+        ></span>
+      </div>
+      <hr />
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-toggle="modal"
+        data-target="#exampleRechargeCredits"
+      >
+        Recharge Credits
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for Ads-->
+<div
+  class="modal fade"
+  id="exampleCreateAdd"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create Advertisement</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="category">CATEGORY OF ADD</label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="category"
+            placeholder="Enter Category of Product"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="category">PRODUCT</label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="product"
+            placeholder="Enter the Name of Product"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="dop">DATE OF PUBLISHING</label>
+          <input type="date" class="form-control" [(ngModel)]="dop" />
+        </div>
+
+        <div class="form-group">
+          <label for="description">DESCRIPTION</label>
+          <textarea
+            class="form-control"
+            [(ngModel)]="desc"
+            placeholder="Enter Description about the Product"
+            row="10"
+            col="6"
+          ></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" (click)="submitAdvt()">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for Credits -->
+<!-- <div class="modal fade" id="exampleCredits" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+      <div class="modal-content">
+            <div class="modal-body">
+                <h3 class="modal-title">Credits Avialable : 60</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleRechargeCredits">Recharge Your Ads</button>
+            </div>
+            </div>
+          </div>
+       </div> -->
+
+<!-- Modal for Recharge Credits -->
+
+<div
+  class="modal fade"
+  id="exampleRechargeCredits"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="recharge">Recharge</label>
+          <input
+            type="number"
+            class="form-control"
+            [(ngModel)]="recharge"
+            placeholder="Enter No. of Credits"
+          />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-toggle="modal" (click)="rechargeFunc(recharge)">
+          Done
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="offset-3 col mt-4">
+  <div *ngIf="myAds">
+    <div *ngFor="let advt of myAds" class="col-md-5 d-inline-block">
+      <div class="card my-3 mr-5 pr-5 bg-white shadow" style="max-width: 540px; cursor: pointer;" (click)="clickAdd(advt.id)" data-toggle="modal" data-target="#exampleModalCenter">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img src="../../assets/img/iphone.jpg" class="card-img" alt="..." height="200px">
+            </div>
+            <div class="col-md-8">
+                <div class="text-right"><i class="fas fa-edit"></i>&nbsp;&nbsp;<i class="fas fa-trash-alt"></i></div>
+              <div class="card-body">
+                <h5 class="card-title">{{advt.categoryadd}}</h5>
+                <p class="card-text">{{advt.product}}</p>
+                <p class="card-text">{{advt.description}}</p>
+                <p class="card-text"><small class="text-muted">Date of Publish: {{advt.dop}}</small></p>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

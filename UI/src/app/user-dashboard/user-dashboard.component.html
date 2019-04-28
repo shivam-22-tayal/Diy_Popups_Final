@@ -1,0 +1,134 @@
+<div class="sticky-top">
+  <nav class="navbar navbar-expand navbar-dark bg-dark p-3">
+    <a routerLink="/" class="navbar-brand"><span class="h3">DIY POPUPS</span></a>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/">Home</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Category
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Electronics</a>
+              <a class="dropdown-item" href="#">Medical</a>
+              <a class="dropdown-item" href="#">Clothing</a>
+              <a class="dropdown-item" href="#">Furniture</a>
+              <a class="dropdown-item" href="#">Home Appliances</a>
+            </div>
+          </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="logout()" style="cursor: pointer;">Logout</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<div class="container-fluid bg-light">
+  <div class="row">
+
+    <div class="col-2 bg-dark position-fixed" id="sticky-sidebar">
+      <div class="card bg-dark shadow text-center mt-5">
+        <div class="card-body">
+          <div class="card-text">
+            <img src="../../assets/img/avatar.png" alt="user image" class="rounded-circle" height="110" width="110">
+          </div>
+          <div class="card-text text-white my-2">
+            <span class="h5">{{currentUser.firstname}} {{currentUser.lastname}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="card shadow text-center mybg mt-5">
+        <div class="card-body">
+          <div class="card-text">
+            <i class="fas fa-wallet fa-3x"></i>
+          </div>
+          <div class="card-text">
+            <div class="h4">
+              Your Credits
+            </div>
+          </div>
+          <div class="card-text my-5">
+            <span class="h2">{{this.credits}}&nbsp;<em class="fas fa-coins text-warning"></em></span>
+          </div>
+          <hr>
+          <div class="card-text">
+            <span class="h5">100&nbsp;<em class="fas fa-coins text-warning"></em> = &nbsp;<em
+                class="fas fa-dollar-sign">&nbsp;1</em></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="offset-3 col mt-4">
+      <div *ngIf="advts">
+        <div *ngFor="let advt of advts" class="col-md-5 d-inline-block">
+          <div class="card my-3 mr-5 pr-5 bg-white shadow" style="max-width: 540px; cursor: pointer;" (click)="creditCount(advt.id)" data-toggle="modal" data-target="#exampleModalCenter">
+              <div class="row no-gutters">
+                <div class="col-md-4">
+                  <img src="../../assets/img/iphone.jpg" class="card-img" alt="..." height="200px">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title">{{advt.categoryadd}}</h5>
+                    <p class="card-text">{{advt.product}}</p>
+                    <p class="card-text">{{advt.description}}</p>
+                    <p class="card-text"><small class="text-muted">Date of Publish: {{advt.dop}}</small></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+</div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">Advertisement Description</h5>
+          <button type="button" data-toggle="modal" data-target=".bd-example-modal-sm" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-5">
+                <img src="../../assets/img/iphone.jpg" alt="product image" height="500" width="500">
+            </div>
+            <div class="offset-2 col-5">
+              <p>{{singleAd.categoryadd}}</p>
+              <p>{{singleAd.product}}</p>
+              <p>{{singleAd.description}}</p>
+              <p>{{singleAd.dop}}</p>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="modal-title">
+            </div>
+            <div class="modal-body bg-light">
+                <h4>Congratulations!!!! You have earned 2 credits..<i class="far fa-smile-beam text-warning"></i></h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
