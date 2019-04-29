@@ -66,10 +66,28 @@ export class UserService {
     return this.http.get(`${this.config.apiUrl}/my/downcredits`).pipe(map(response=>response));
   }
 
- updateDowncredits(val:number){
-   console.log(val);
 
-  return this.http.put(`${this.config.apiUrl}/downcredits/update`,val).pipe(map(response=>response));
- }
+  updateDowncredits(val:number){
+    console.log(val);
+
+   return this.http
+   .get(`${this.config.apiUrl}/downcredits/update/${val}`)
+   .pipe(map(response=>response));
+  }
+
+  updateUpcredits(val:number){
+    console.log(val);
+
+   return this.http
+   .get(`${this.config.apiUrl}/upcredits/update/${val}`)
+   .pipe(map(response=>response));
+  }
+
+getPerdayClick(){
+
+  return this.http
+  .get<number>(`${this.config.apiUrl}/my/dailyclicklimit`)
+  .pipe(map(response=>response));
+}
 
 }

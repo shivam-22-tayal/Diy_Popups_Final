@@ -1,5 +1,6 @@
 package com.ibm.diypopups.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ibm.diypopups.model.Advertisements;
@@ -112,6 +114,30 @@ public class UserController {
 		return findEndUser(user.getId()).getUpcredits();
 	}
 	
+	@CrossOrigin(origins = "*")
+	@GetMapping("/downcredits/update/{val}")
+	public int UpdateDcredits(@CurrentUser UserPrincipal user,@PathVariable Integer val)
+	{
+		//int v=Integer.parseInt(val);
+		System.out.println(val);
+		userService.updateDownCredits(user.getId(), val);
+		return getDownCredits(user);
+		
+		
+	}
+	
+	@CrossOrigin(origins = "*")
+	@GetMapping("/upcredits/update/{val}")
+	public int UpdateUcredits(@CurrentUser UserPrincipal user,@PathVariable Integer val)
+	{
+		//int v=Integer.parseInt(val);
+		System.out.println(val);
+		userService.updateUpCredits(user.getId(), val);
+		return getCredits(user);
+		
+		
+	}
+	
 	
 	@CrossOrigin(origins="*")
 	@GetMapping("/my/downcredits")
@@ -128,18 +154,16 @@ public class UserController {
 		return V.getId();
 		
 	}
-
-    
-	@CrossOrigin(origins = "*")
-	@PutMapping("/downcredits/update")
-	public int UpdateDcredits(@CurrentUser UserPrincipal user,int val)
-	{
-		//int v=Integer.parseInt(val);
-		System.out.println(val);
-		userService.updateDownCredits(user.getId(), val);
-		return getDownCredits(user);
-		
-		
-	}
 	
+	@CrossOrigin(origins="*")
+    @GetMapping("/my/dailyclicklimit")
+	public ResponseEntity<?> PerDayClickLimit(@CurrentUser UserPrincipal user) {
+		Long x=userService.getPerdayLimit(user.getId());
+		System.out.println("limit: "+x);
+		List<Long> clickLimit = new ArrayList<>();
+		clickLimit.add(x);
+		return new ResponseEntity<>(clickLimit, HttpStatus.OK);
+	}
+    
+    
 }

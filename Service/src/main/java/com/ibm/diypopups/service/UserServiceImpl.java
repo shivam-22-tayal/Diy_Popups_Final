@@ -84,6 +84,29 @@ public class UserServiceImpl {
 		userRepo.save(U);
 	}
 	
+	public void updateDownCredits(long id,int val) {
+		
+		User eu;
+		
+		eu=userRepo.findById(id).get();
+		eu.setDowncredits(eu.getDowncredits()+val);
+		userRepo.save(eu);
+		
+		
+	}
+	
+public void updateUpCredits(long id,int val) {
+		
+		User eu;
+		
+		eu=userRepo.findById(id).get();
+		if(eu.getUpcredits()>=val) {
+		eu.setUpcredits(eu.getUpcredits()-val);
+		}
+		userRepo.save(eu);
+		
+		
+	}
 	
 	public void edit(User U) {
 		
@@ -118,7 +141,9 @@ public class UserServiceImpl {
 		
 		List<Advertisements> vds = new ArrayList<>();
 		for (Advertisements V : vidrepo.findAll()) {
+			if(V.getVcredits()>0) {
 			vds.add(V);
+			}
 		}
 		return vds;
 	}
@@ -190,14 +215,11 @@ public class UserServiceImpl {
 		}	
 	
 	
-	
-	public void updateDownCredits(long id,int val) {
+	public Long getPerdayLimit(long id) {
 		
-		User eu;
+	 return drepo.getClickLimit(id);
 		
-		eu=userRepo.findById(id).get();
-		eu.setDowncredits(val);
-		userRepo.save(eu);
+		
 		
 		
 	}
@@ -212,12 +234,6 @@ public class UserServiceImpl {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
-
-	/*public void updateDownCredits(Long id, int v) {
-		// TODO Auto-generated method stub
-		
-	}*/
 
 
 }

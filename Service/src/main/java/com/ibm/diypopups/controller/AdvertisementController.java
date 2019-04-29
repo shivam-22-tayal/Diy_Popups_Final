@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -68,18 +70,27 @@ public class AdvertisementController {
 		
 		Advertisements.setEid(currentUser.getId());
 		int x=user.getDowncredits();
+		if(x>0)
+		{
 		user.setDowncredits(x-20);
 		
 		Advertisements.setVcredits(10);
 		Advertisements gotAdvertisements = advertisementService.save(Advertisements);
 		userRepo.save(user);
+		
+		
 		if(gotAdvertisements == null) {
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
 		
+		
 		//currentUser.setDowncredits(x-2);
 		
 		return new ResponseEntity<>(gotAdvertisements, HttpStatus.CREATED);
+	}
+		else {
+			return new ResponseEntity<>("No credits left",HttpStatus.OK);
+		}
 	}
 	/*
 	@GetMapping("/others")
@@ -102,6 +113,28 @@ public class AdvertisementController {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<>(advertisementByOthers, HttpStatus.OK);
+	}
+	
+	@PutMapping
+	public ResponseEntity<?> updateAd(@RequestBody Advertisements advt){
+		Advertisements previousAd = advertisementService.findById(advt.getId()).get();
+		
+		previousAd.setCategoryadd(advt.getCategoryadd());
+		previousAd.setBrand(advt.getBrand());
+		previousAd.setDop(advt.getDop());
+		previousAd.setDescription(advt.getDescription());
+		previousAd.setProduct(advt.getProduct());
+		
+		Advertisements updatedAd = advertisementService.save(previousAd);
+		
+		return new ResponseEntity<>(updatedAd, HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteAd(@PathVariable Long id){
+	 advertisementService.delete(id);
+	 return new ResponseEntity<>("Ad deleted", HttpStatus.OK);
+		
 	}
 	
 	@CrossOrigin(origins="*")

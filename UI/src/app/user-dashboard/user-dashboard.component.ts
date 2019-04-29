@@ -1,26 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { AdvertisementService } from '../advertisement.service';
-import { Advertisement } from '../advertisement.model';
-import { Router } from '@angular/router';
-import { EndUserLinkService } from '../end-user-link.service';
-import { StoreUidService } from '../store-uid.service';
-import { AuthenticationService } from '../_services/authentication.service';
-import { UserService } from '../_services/user.service';
-import { User } from '../_models/user';
+import { Component, OnInit } from "@angular/core";
+import { AdvertisementService } from "../advertisement.service";
+import { Advertisement } from "../advertisement.model";
+import { Router } from "@angular/router";
+import { EndUserLinkService } from "../end-user-link.service";
+import { StoreUidService } from "../store-uid.service";
+import { AuthenticationService } from "../_services/authentication.service";
+import { UserService } from "../_services/user.service";
+import { User } from "../_models/user";
 
 @Component({
-  selector: 'app-user-dashboard',
-  templateUrl: './user-dashboard.component.html',
-  styleUrls: ['./user-dashboard.component.css']
+  selector: "app-user-dashboard",
+  templateUrl: "./user-dashboard.component.html",
+  styleUrls: ["./user-dashboard.component.css"]
 })
 export class UserDashboardComponent implements OnInit {
-
   advts: Advertisement[];
   credits;
   ide;
   currentUser: User;
-
+  reedemAmount;
   singleAd: Advertisement;
+  clicklimit:number;
 
   constructor(
     private service: AdvertisementService,
@@ -29,13 +29,12 @@ export class UserDashboardComponent implements OnInit {
     private euid: StoreUidService,
     private authenticationService: AuthenticationService,
     private userService: UserService
-  ) { }
+  ) {}
   openNav() {
-    document.getElementById('mySidenav').style.width = '250px';
+    document.getElementById("mySidenav").style.width = "250px";
   }
   closeNav() {
-    document.getElementById('mySidenav').style.width = '0';
-
+    document.getElementById("mySidenav").style.width = "0";
   }
 
   ngOnInit() {
@@ -44,25 +43,20 @@ export class UserDashboardComponent implements OnInit {
     this.creditShow();
     this.getCurrentUserDetails();
     this.getAllAds();
-
-
   }
 
-  getAllAds(){
-    this.service.getAllAdvt()
-    .subscribe(
-      data =>{
+  getAllAds() {
+    this.service.getAllAdvt().subscribe(
+      data => {
         this.advts = data;
       },
-      error =>{
+      error => {
         console.log(error);
       }
     );
   }
-  getCurrentUserDetails(){
-
-    this.userService.getCurrentUserDetails()
-    .subscribe(
+  getCurrentUserDetails() {
+    this.userService.getCurrentUserDetails().subscribe(
       data => {
         console.log(data);
         this.currentUser = data;
@@ -72,7 +66,6 @@ export class UserDashboardComponent implements OnInit {
   }
 
   getAllAdsById(id: number) {
-
     this.eul.getAllAdsByEid(id).subscribe(
       data => {
         this.advts = data;
@@ -84,54 +77,93 @@ export class UserDashboardComponent implements OnInit {
   }
 
   clickCount(id: number) {
+    this.userService.clickify(id).subscribe(
+      data => {
+        console.log(data);
+      },
 
-    this.userService.clickify(id).subscribe(data => { console.log(data); },
-
-      err => { console.log(err); });
+      err => {
+        console.log(err);
+      }
+    );
   }
 
   creditCount(vid: number) {
     //this.credits=0;
+    this.getAdById(vid);
     console.log(vid);
 
-     this.clickCount(vid);
-console.log("clicked");
-    this.userService.creditFlow( vid).subscribe(data => this.credits = data,
-      err => { console.log(err); });
+    this.clickCount(vid);
+    console.log("clicked");
+    this.userService.creditFlow(vid).subscribe(
+      data => (this.credits = data),
+      err => {
+        console.log(err);
+      }
+    );
     this.creditShow();
-   console.log(this.credits);
-
+    this.findPerdayClicks();
+    console.log(this.credits);
   }
 
   creditShow() {
-    this.userService.showCredits().subscribe(data => { this.credits = data; console.log(data); },
-      err => { console.log(err); });
+    this.userService.showCredits().subscribe(
+      data => {
+        this.credits = data;
+        console.log(data);
+      },
+      err => {
+        console.log(err);
+      }
+    );
 
     // console.log(this.credits)
     // return this.credits;
   }
   logout() {
     this.authenticationService.logout();
-    this.router.navigate(['/login']);
+    this.router.navigate(["/login"]);
   }
 
-clickAdd(id: number){
-  this.getAdById(id);
-}
+  clickAdd(id: number) {
+    this.getAdById(id);
+  }
 
-getAdById(aid: number){
-  this.service.getAdById(aid)
-  .subscribe(
-    data =>{
-      this.singleAd = data;
-      console.log(data);
-    },
-    error =>{
-      console.log(error);
-    }
-  );
-}
-alert(){
-  alert('You have earned 2 credits');
-}
-}
+  getAdById(aid: number) {
+    this.service.getAdById(aid).subscribe(
+      data => {
+        this.singleAd = data;
+        console.log(data);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+  reedemFunc() {
+    console.log(this.reedemAmount);
+    this.userService.updateUpcredits(this.reedemAmount).subscribe(
+      data => {
+        this.credits = data;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  findPerdayClicks(){
+
+    this.userService.getPerdayClick().subscribe(
+      data=>{
+        this.clicklimit=data;
+        console.log(data);
+      },
+
+      error=>{
+        console.log(error);
+      }
+      )
+  }
+
+  }

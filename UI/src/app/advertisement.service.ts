@@ -44,4 +44,15 @@ export class AdvertisementService{
       .get<Advertisement[]>(`http://localhost:8080/api/advt/my`)
       .pipe(map(response => response));
     }
+
+    updateAd(adObj){
+      return this.http
+      .put(`${this.config.apiUrl}/advt`, adObj)
+      .pipe(map(response => response));
+    }
+    deleteAd(id: number){
+      return this.http
+      .delete(`${this.config.apiUrl}/advt/${id}`)
+      .pipe(map(response => response));
+    }
 }

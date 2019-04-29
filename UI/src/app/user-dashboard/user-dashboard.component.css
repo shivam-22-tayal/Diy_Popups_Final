@@ -7,3 +7,12 @@
 #sticky-sidebar{
   height: 100vh;
 }
+div.container-fluid{
+  margin-top: -3.3%;
+  height: auto;
+  background-image: url('../../assets/img/a.jpg');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}

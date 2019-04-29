@@ -25,6 +25,9 @@ public class Advertisements extends UserDateAudit{
 	private String categoryadd;
 	
 	@NotBlank
+	private String brand;
+	
+	@NotBlank
 	private String product;
 		
 	@NotBlank
@@ -71,6 +74,14 @@ public class Advertisements extends UserDateAudit{
 		this.categoryadd = categoryadd;
 	}
 
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+	
 	public String getProduct() {
 		return product;
 	}

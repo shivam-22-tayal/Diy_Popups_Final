@@ -5,6 +5,7 @@ export class Advertisement{
   updatedBy: number;
   id: number;
   categoryadd: string;
+  brand: string;
   product: string;
   dop: string;
   description: string;

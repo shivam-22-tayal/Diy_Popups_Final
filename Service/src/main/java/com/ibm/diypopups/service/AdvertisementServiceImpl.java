@@ -75,7 +75,7 @@ AdvertisementRepository addRepo;
 	}
 	
 	public void delete(long id) {
-		addRepo.delete(addRepo.findById( id).get());
+		addRepo.deleteById(id);
 	}
 	
 	public void UpdateClick(long id){

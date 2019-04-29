@@ -1,6 +1,7 @@
 export class AdsModel{
     id: number;
     categoryadd: string;
+    brand: string;
     product: string;
     dop: string;
     description: string;
@@ -9,4 +10,3 @@ export class AdsModel{
     created_by: string;
     updated_by: string;
   }
-  

@@ -3,7 +3,7 @@
     <a routerLink="/" class="navbar-brand"><span class="h3">DIY POPUPS</span></a>
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" routerLink="/">Home</a>
+        <a class="nav-link" routerLink="/"><i class="fas fa-home fa-2x"></i></a>
       </li>
     </ul>
     <ul class="navbar-nav">
@@ -16,11 +16,14 @@
               <a class="dropdown-item" href="#">Medical</a>
               <a class="dropdown-item" href="#">Clothing</a>
               <a class="dropdown-item" href="#">Furniture</a>
+              <a class="dropdown-item" href="#">Video Games</a>
+              <a class="dropdown-item" href="#">Computers</a>
+              <a class="dropdown-item" href="#">Mobile Phones</a>
               <a class="dropdown-item" href="#">Home Appliances</a>
             </div>
           </li>
       <li class="nav-item">
-        <a class="nav-link" (click)="logout()" style="cursor: pointer;">Logout</a>
+        <a class="nav-link" (click)="logout()" style="cursor: pointer;"><i class="fas fa-power-off fa-2x"></i></a>
       </li>
     </ul>
   </nav>
@@ -36,7 +39,7 @@
             <img src="../../assets/img/avatar.png" alt="user image" class="rounded-circle" height="110" width="110">
           </div>
           <div class="card-text text-white my-2">
-            <span class="h5">{{currentUser.firstname}} {{currentUser.lastname}}</span>
+            <i class="fas fa-circle text-success"></i><span class="h5"> {{currentUser?.firstname}} {{currentUser?.lastname}}</span>
           </div>
         </div>
       </div>
@@ -53,6 +56,14 @@
           <div class="card-text my-5">
             <span class="h2">{{this.credits}}&nbsp;<em class="fas fa-coins text-warning"></em></span>
           </div>
+          <button
+          type="button"
+          class="btn btn-primary"
+          data-toggle="modal"
+          data-target="#exampleReedemCredits"
+        >
+          Reedem Credits
+        </button>
           <hr>
           <div class="card-text">
             <span class="h5">100&nbsp;<em class="fas fa-coins text-warning"></em> = &nbsp;<em
@@ -70,14 +81,15 @@
           <div class="card my-3 mr-5 pr-5 bg-white shadow" style="max-width: 540px; cursor: pointer;" (click)="creditCount(advt.id)" data-toggle="modal" data-target="#exampleModalCenter">
               <div class="row no-gutters">
                 <div class="col-md-4">
-                  <img src="../../assets/img/iphone.jpg" class="card-img" alt="..." height="200px">
+                  <img src="../../assets/img/logo.png" class="card-img" alt="..." height="200px">
                 </div>
                 <div class="col-md-8">
                   <div class="card-body">
-                    <h5 class="card-title">{{advt.categoryadd}}</h5>
-                    <p class="card-text">{{advt.product}}</p>
-                    <p class="card-text">{{advt.description}}</p>
-                    <p class="card-text"><small class="text-muted">Date of Publish: {{advt.dop}}</small></p>
+                    <p class="card-title"><strong>CATEGORY:</strong> {{advt?.categoryadd}}</p>
+                    <p class="card-text"><strong>BRAND:</strong> {{advt?.brand}}</p>
+                    <p class="card-text"><strong>PRODUCT:</strong> {{advt?.product}}</p>
+                    <p class="card-text"><strong>DESCRIPTION:</strong> {{advt?.description}}</p>
+                    <p class="card-text"><small class="text-muted">Date of Publish: {{advt?.dop}}</small></p>
                   </div>
                 </div>
               </div>
@@ -102,23 +114,23 @@
         <div class="modal-body">
           <div class="row">
             <div class="col-5">
-                <img src="../../assets/img/iphone.jpg" alt="product image" height="500" width="500">
+                <img src="../../assets/img/logo.png" alt="product image" height="500" width="500">
             </div>
             <div class="offset-2 col-5">
-              <p>{{singleAd.categoryadd}}</p>
-              <p>{{singleAd.product}}</p>
-              <p>{{singleAd.description}}</p>
-              <p>{{singleAd.dop}}</p>
+              <p><strong>CATEGORY:</strong> {{singleAd?.categoryadd}}</p>
+              <p><strong>BRAND:</strong> {{singleAd?.brand}}</p>
+              <p><strong>PRODUCT:</strong> {{singleAd?.product}}</p>
+              <p><strong>DESCRIPTION:</strong> {{singleAd?.description}}</p>
+              <p><strong>DATE OF PUBLISHING:</strong> {{singleAd?.dop}}</p>
             </div>
           </div>
         </div>
-        <!-- <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div> -->
       </div>
     </div>
   </div>
+
+
+  <div *ngIf="clicklimit >= 1 ; else exceed">
   <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
@@ -132,3 +144,52 @@
         </div>
       </div>
     </div>
+</div>
+  <ng-template #exceed>
+    <div>
+      <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="limitModal">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <div class="modal-title">
+              </div>
+              <div class="modal-body bg-light">
+                  <h4>Sorry...You have already gained maximum credits for today..!!!<i class="far fa-smile-beam text-warning"></i></h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </ng-template>
+<!-- Modal for Reedem Credits -->
+   <div
+  class="modal fade"
+  id="exampleReedemCredits"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="reedem">Reedem</label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="reedemAmount"
+            placeholder="Enter No. of Credits"
+          />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal"  (click)="reedemFunc()">
+          Done
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
