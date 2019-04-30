@@ -212,6 +212,7 @@ public void updateUpCredits(long id,int val) {
 			userRepo.save(eu);
 			
 		}
+		//return ct;
 		}	
 	
 	
@@ -235,5 +236,26 @@ public void updateUpCredits(long id,int val) {
 		return false;
 	}
 
+	
+	public int SingleClick(long vid,long eid) {
+		creditcounter cct=new creditcounter();
+		cct.setVid(vid);
+		cct.setEid(eid);
+		//vids v=new vids();
+		perdayclicks p=new perdayclicks();
+		int ct=credRepo.countCredit(vid, eid);
+		
+		return ct;
+		
+	}
+	
+	public List<Advertisements> filter(String category){
+		
+	List<Advertisements> AdByCategory=new ArrayList<Advertisements>();
+	 
+	AdByCategory=vidrepo.getByCategory(category);
+	return AdByCategory;
+	
+	}
 
 }

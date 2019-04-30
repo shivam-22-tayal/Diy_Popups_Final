@@ -12,14 +12,15 @@
               Category
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Electronics</a>
-              <a class="dropdown-item" href="#">Medical</a>
-              <a class="dropdown-item" href="#">Clothing</a>
-              <a class="dropdown-item" href="#">Furniture</a>
-              <a class="dropdown-item" href="#">Video Games</a>
-              <a class="dropdown-item" href="#">Computers</a>
-              <a class="dropdown-item" href="#">Mobile Phones</a>
-              <a class="dropdown-item" href="#">Home Appliances</a>
+              
+                <div *ngFor="let item of categories">
+                  <div>{{item}}</div>
+                <option value={{item}}>{{item}}</option>
+
+                </div>
+
+
+              
             </div>
           </li>
       <li class="nav-item">
@@ -67,7 +68,7 @@
           <hr>
           <div class="card-text">
             <span class="h5">100&nbsp;<em class="fas fa-coins text-warning"></em> = &nbsp;<em
-                class="fas fa-dollar-sign">&nbsp;1</em></span>
+                class="fas fa-rupee-sign">&nbsp;50</em></span>
           </div>
         </div>
       </div>
@@ -130,7 +131,7 @@
   </div>
 
 
-  <div *ngIf="clicklimit >= 1 ; else exceed">
+  <div *ngIf="this.clicklimit >= 1 && this.adclicklimit==0  ">
   <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
@@ -145,8 +146,9 @@
       </div>
     </div>
 </div>
-  <ng-template #exceed>
-    <div>
+  <!--<ng-template #exceed>-->
+    <div *ngIf="this.clicklimit==0 && 
+    this.adclicklimit==0">
       <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="limitModal">
         <div class="modal-dialog modal-sm">
           <div class="modal-content">
@@ -162,7 +164,24 @@
       </div>
 
     </div>
-  </ng-template>
+
+    <div *ngIf=" this.adclicklimit>=1  ">
+      <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <div class="modal-header">
+                <div class="modal-title">
+                </div>
+                <div class="modal-body bg-light">
+                    <h4>Sorry You Have Already Earned The Credits For This Advertisement<i class="far fa-smile-beam text-warning"></i></h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+ <!-- </ng-template>-->
 <!-- Modal for Reedem Credits -->
    <div
   class="modal fade"

@@ -151,4 +151,27 @@ public class AdvertisementController {
 		
 		return ad.getId();
 	}
+	
+	@CrossOrigin(origins="*")
+	@GetMapping("/getCategories")
+	public List<String> Adcategories(){
+		
+		List<String> A=new ArrayList<String>();
+		List<Advertisements> B=advertisementService.getAllAdvertisement();
+		
+		 
+		
+		for(Advertisements ob:B) {
+			
+			A.add(ob.getCategoryadd());
+		}
+		System.out.println(A);
+		return A;
+		
+	}
+    
+	
+	
+	
+	
 }

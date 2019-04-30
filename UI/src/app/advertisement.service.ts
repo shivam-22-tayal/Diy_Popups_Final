@@ -55,4 +55,12 @@ export class AdvertisementService{
       .delete(`${this.config.apiUrl}/advt/${id}`)
       .pipe(map(response => response));
     }
+
+getCategories(){
+
+  return this.http.get<string[]>
+  (`${this.config.apiUrl}/getCategories`).
+  pipe(map(response=>response));
+}
+
 }

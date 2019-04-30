@@ -21,7 +21,9 @@ export class UserDashboardComponent implements OnInit {
   reedemAmount;
   singleAd: Advertisement;
   clicklimit:number;
+  categories:String[];
 
+  adclicklimit:number;
   constructor(
     private service: AdvertisementService,
     private router: Router,
@@ -43,6 +45,7 @@ export class UserDashboardComponent implements OnInit {
     this.creditShow();
     this.getCurrentUserDetails();
     this.getAllAds();
+    this.getCategory();
   }
 
   getAllAds() {
@@ -103,6 +106,7 @@ export class UserDashboardComponent implements OnInit {
     );
     this.creditShow();
     this.findPerdayClicks();
+    this.findVidClickLimit(vid);
     console.log(this.credits);
   }
 
@@ -164,6 +168,26 @@ export class UserDashboardComponent implements OnInit {
         console.log(error);
       }
       )
+  }
+
+  getCategory(){
+    //let x=0;
+    this.service.getCategories().subscribe(
+      data=>{this.categories=data;
+      console.log(this.categories);
+      },
+      err=>{console.log(err);}
+    )
+
+  }
+
+  findVidClickLimit(vid:number){
+
+    this.userService.checkClickStatus(vid)
+    .subscribe(data=>{
+this.adclicklimit=data;console.log("data");
+
+    }, err=>{console.log(err);});
   }
 
   }

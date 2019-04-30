@@ -90,4 +90,14 @@ getPerdayClick(){
   .pipe(map(response=>response));
 }
 
+checkClickStatus(val:number){
+
+  console.log(val);
+
+  return this.http.get<number>
+  (`${this.config.apiUrl}/my/${val}/clicked`).pipe(
+    map(response=>response)
+  );
+}
+
 }

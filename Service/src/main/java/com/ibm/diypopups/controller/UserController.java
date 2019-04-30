@@ -164,6 +164,24 @@ public class UserController {
 		clickLimit.add(x);
 		return new ResponseEntity<>(clickLimit, HttpStatus.OK);
 	}
+	
+	@CrossOrigin(origins="*")
+	@GetMapping("/my/{vid}/clicked")
+	public int getClickStatus(@CurrentUser UserPrincipal user,@PathVariable Long vid) {
+		
+		return userService.SingleClick(vid, user.getId());
+	}
+	
+	@CrossOrigin(origins="*")
+	@GetMapping("/my/filter/{category}")
+	public List<Advertisements> filterAds(@PathVariable String category) {
+		
+		List<Advertisements> AdsFilter=new ArrayList <Advertisements >();
+		AdsFilter= userService.filter(category);
+		return AdsFilter;
+		
+		
+	}
     
     
 }
