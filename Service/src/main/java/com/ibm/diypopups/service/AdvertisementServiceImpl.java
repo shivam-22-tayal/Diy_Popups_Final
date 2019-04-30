@@ -96,5 +96,8 @@ AdvertisementRepository addRepo;
 	public List<Advertisements> findByEidIn(List<Long> userIds) {
 		return addRepo.findByEidIn(userIds);
 	}
-	 
+	
+	public List<String> findAllCategory(){
+		return addRepo.findAllCategory();
+	}
 }

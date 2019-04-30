@@ -16,6 +16,9 @@ public interface AdvertisementRepository extends JpaRepository<Advertisements, L
 	//List<Advertisements> findByUidNotIn(List<Long> userIds);
 	List<Advertisements> findByEidIn(List<Long> userIds);
 	
+	@Query("select distinct(categoryadd) from Advertisements")
+	List<String> findAllCategory();
+	
 	@Query(value="Select * from advertisements adv where adv.categoryadd= :category",
 			nativeQuery=true)
 	public List<Advertisements> getByCategory(@Param("category") String category);

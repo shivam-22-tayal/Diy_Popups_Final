@@ -34,7 +34,7 @@ export class OwnerDashboardComponent implements OnInit {
   rechargeAmount;
 
   currentUser: User;
-    constructor(private service: AdvertisementService,
+  constructor(private service: AdvertisementService,
     private router: Router, private alertService: AlertService,
     private postService: AdsService,
     private authenticationService: AuthenticationService,
@@ -75,10 +75,10 @@ export class OwnerDashboardComponent implements OnInit {
 
   submitAdvt() {
 
-    if (this.category !== undefined && this.brand !== undefined &&  this.product !== undefined  && this.desc !== undefined) {
-      
+    if (this.category !== undefined && this.brand !== undefined && this.product !== undefined && this.desc !== undefined) {
+
       let date = new Date();
-      let fullDate = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
+      let fullDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 
       let advtObj = {
         categoryadd: this.category,
@@ -88,35 +88,23 @@ export class OwnerDashboardComponent implements OnInit {
         description: this.desc
       };
 
-      if(this.downcredits < 20){
+      if (this.downcredits < 20) {
         alert('Please reacharge..!!');
-      } else{
+      } else {
         this.service.writeAdvt(advtObj)
-        .subscribe(
-          response => {
-            this.getMyAds();
-            this.downcreditshow();
-            alert('Advertisement has been posted...!!');
-            this.router.navigateByUrl('/showAdd');
-          },
-          error => {
-            this.getMyAds();
-            console.log(error);
+          .subscribe(
+            response => {
+              this.getMyAds();
+              this.downcreditshow();
+              alert('Advertisement has been posted...!!');
+              this.router.navigateByUrl('/showAdd');
+            },
+            error => {
+              this.getMyAds();
+              console.log(error);
 
-          });
+            });
       }
-      // this.service.getAdId(this.advtInfo).subscribe(
-      //   response => {
-      //     this.idA = response;
-
-      //   },
-      //   error => {
-      //     console.log(error);
-
-      //   });
-
-      // this.advtInfo.id = this.idA;
-
 
       this.category = '';
       this.brand = '';
@@ -128,13 +116,6 @@ export class OwnerDashboardComponent implements OnInit {
     }
   }
 
-
-  // clickCount(id: number) {
-
-  //   this.service.clickify(id).subscribe(data => { console.log(data); },
-
-  //     err => { console.log(err); });
-  // }
   getMyAds() {
     this.service.getMyAds()
       .subscribe(
@@ -148,7 +129,7 @@ export class OwnerDashboardComponent implements OnInit {
   }
 
 
-  downcreditshow(){
+  downcreditshow() {
 
     this.userService.showDowncredits()
       .subscribe(
@@ -163,77 +144,77 @@ export class OwnerDashboardComponent implements OnInit {
 
   }
 
-  deleteAd(id){
-    if(confirm(`Are you sure, you want to delete this Ad`)){
+  deleteAd(id) {
+    if (confirm(`Are you sure, you want to delete this Ad`)) {
       this.service.deleteAd(id)
+        .subscribe(
+          data => {
+            alert('Ad deleted');
+            this.getMyAds();
+          },
+          error => {
+            this.getMyAds();
+            console.log(error);
+          }
+        );
+    }
+  }
+
+  loadEditData(id: number) {
+    this.service.getAdById(id)
       .subscribe(
         data => {
-          alert('Ad deleted');
+          this.idA = data.id;
+          this.category = data.categoryadd;
+          this.brand = data.brand;
+          this.product = data.product;
+          this.dop = data.dop;
+          this.desc = data.description;
+        }, error => {
+          console.log(error);
+        });
+  }
+
+  updateAd() {
+    const updateAdObj = {
+      id: this.idA,
+      categoryadd: this.category,
+      brand: this.brand,
+      product: this.product,
+      dop: this.dop,
+      description: this.desc
+    }
+    this.service.updateAd(updateAdObj)
+      .subscribe(
+        data => {
           this.getMyAds();
+          alert('Advertisement Updated');
         },
         error => {
-          this.getMyAds();
           console.log(error);
         }
       );
-    }
-  }
-
-  loadEditData(id: number){
-    this.service.getAdById(id)
-    .subscribe(
-      data =>{
-        this.idA = data.id;
-        this.category = data.categoryadd;
-        this.brand = data.brand;
-        this.product = data.product;
-        this.dop = data.dop;
-        this.desc = data.description;
-      }, error =>{
-        console.log(error);
-      });
-  }
-
-  updateAd(){
-    const updateAdObj = {
-        id: this.idA,
-        categoryadd: this.category,
-        brand: this.brand,
-        product: this.product,
-        dop: this.dop,
-        description: this.desc
-    }
-    this.service.updateAd(updateAdObj)
-    .subscribe(
-      data =>{
-        this.getMyAds();
-        alert('Advertisement Updated');
-      },
-      error =>{
-        console.log(error);
-      }
-    );
     this.category = '';
-      this.brand = '';
-      this.product = '';
-      this.dop = '';
-      this.desc = '';
+    this.brand = '';
+    this.product = '';
+    this.dop = '';
+    this.desc = '';
   }
 
 
-  rechargeFunc(){
+  rechargeFunc() {
     console.log(this.rechargeAmount);
-        this.userService.updateDowncredits(this.rechargeAmount).subscribe(
-    data=>{
-      this.downcredits=data;
-    },
-    error=>{
+    this.userService.updateDowncredits(this.rechargeAmount).subscribe(
+      data => {
+        this.downcredits = data;
+      },
+      error => {
 
-      console.log(error);
-    }
-
-        );
+        console.log(error);
       }
+
+    );
+  }
 
 
   logout() {

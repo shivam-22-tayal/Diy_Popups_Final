@@ -170,6 +170,12 @@ public class AdvertisementController {
 		
 	}
 	
+	@GetMapping("/category")
+	public ResponseEntity<?> getAllCategory(){
+		List<String> categoryList = advertisementService.findAllCategory();
+		return new ResponseEntity<>(categoryList, HttpStatus.OK);
+	}
+	
 	@GetMapping("/clickList")
 	public ResponseEntity<?> getClickList(@CurrentUser UserPrincipal currentUser){
 		List<Long> clickList = userservice.findVidByEid(currentUser.getId());
