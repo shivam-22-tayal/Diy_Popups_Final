@@ -20,7 +20,7 @@
                 </div>
 
 
-              
+                
             </div>
           </li>
       <li class="nav-item">
@@ -89,7 +89,11 @@
                     <p class="card-title"><strong>CATEGORY:</strong> {{advt?.categoryadd}}</p>
                     <p class="card-text"><strong>BRAND:</strong> {{advt?.brand}}</p>
                     <p class="card-text"><strong>PRODUCT:</strong> {{advt?.product}}</p>
-                    <p class="card-text"><strong>DESCRIPTION:</strong> {{advt?.description}}</p>
+                    <p class="card-text">
+                      <strong>DESCRIPTION:</strong>
+                      {{advt?.description |  slice:0:15}}
+                      <span *ngIf="advt?.description.length > 15"><a (click)="creditCount(advt.id)">..Read More</a></span>
+                    </p>
                     <p class="card-text"><small class="text-muted">Date of Publish: {{advt?.dop}}</small></p>
                   </div>
                 </div>
@@ -108,7 +112,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalCenterTitle">Advertisement Description</h5>
-          <button type="button" data-toggle="modal" data-target=".bd-example-modal-sm" class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" data-toggle="modal" data-target=".bd-example-modal-sm" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -117,7 +121,7 @@
             <div class="col-5">
                 <img src="../../assets/img/logo.png" alt="product image" height="500" width="500">
             </div>
-            <div class="offset-2 col-5">
+            <div class="offset-2 col-5 mt-5 pt-4" id="wrap">
               <p><strong>CATEGORY:</strong> {{singleAd?.categoryadd}}</p>
               <p><strong>BRAND:</strong> {{singleAd?.brand}}</p>
               <p><strong>PRODUCT:</strong> {{singleAd?.product}}</p>
@@ -131,7 +135,7 @@
   </div>
 
 
-  <div *ngIf="this.clicklimit >= 1 && this.adclicklimit==0  ">
+  <!-- <div *ngIf="this.clicklimit >= 1 && this.adclicklimit==0  ">
   <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
@@ -140,14 +144,14 @@
             </div>
             <div class="modal-body bg-light">
                 <h4>Congratulations!!!! You have earned 2 credits..<i class="far fa-smile-beam text-warning"></i></h4>
-            </div>
+            </div>          
           </div>
         </div>
       </div>
     </div>
-</div>
+</div> -->
   <!--<ng-template #exceed>-->
-    <div *ngIf="this.clicklimit==0 && 
+    <!-- <div *ngIf="this.clicklimit==0 && 
     this.adclicklimit==0">
       <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="limitModal">
         <div class="modal-dialog modal-sm">
@@ -163,9 +167,9 @@
         </div>
       </div>
 
-    </div>
+    </div> -->
 
-    <div *ngIf=" this.adclicklimit>=1  ">
+    <div>
       <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-sm">
             <div class="modal-content">
@@ -173,7 +177,7 @@
                 <div class="modal-title">
                 </div>
                 <div class="modal-body bg-light">
-                    <h4>Sorry You Have Already Earned The Credits For This Advertisement<i class="far fa-smile-beam text-warning"></i></h4>
+                    <h4>{{messageStatus}}<i class="far fa-smile-beam text-warning"></i></h4>
                 </div>
               </div>
             </div>

@@ -257,5 +257,9 @@ public void updateUpCredits(long id,int val) {
 	return AdByCategory;
 	
 	}
+	
+	public List<Long> findVidByEid(Long eid){
+		return credRepo.findVidByEid(eid);
+	}
 
 }

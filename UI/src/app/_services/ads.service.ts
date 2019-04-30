@@ -32,4 +32,6 @@ export class AdsService {
     //   .get<PostModel[]>(`${this.config.apiUrl}`)
     //   .pipe(map(response => response));
     // }
+
+    
 }

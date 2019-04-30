@@ -56,11 +56,23 @@ export class AdvertisementService{
       .pipe(map(response => response));
     }
 
-getCategories(){
+    getCategoryList(){
+      return this.http
+      .get<string[]>(`${this.config.apiUrl}/advt/category`)
+      .pipe(map(response => response));
+    }
 
-  return this.http.get<string[]>
-  (`${this.config.apiUrl}/getCategories`).
-  pipe(map(response=>response));
-}
+    getAdsByCategory(category:string){
 
+      return this.http
+      .get<Advertisement[]>(`http://localhost:8080/api/my/filter/${category}`)
+      .pipe(map(response => response));
+
+    }
+
+    getClickList(){
+      return this.http
+      .get<number[]>(`${this.config.apiUrl}/advt/clickList`)
+      .pipe(map(response => response));
+    }
 }

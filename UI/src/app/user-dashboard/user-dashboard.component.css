@@ -15,4 +15,10 @@ div.container-fluid{
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  min-height: 757px;
+  height: auto;
+  overflow: auto;
+}
+#wrap p {
+  word-wrap: break-word;
 }

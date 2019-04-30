@@ -169,6 +169,12 @@ public class AdvertisementController {
 		return A;
 		
 	}
+	
+	@GetMapping("/clickList")
+	public ResponseEntity<?> getClickList(@CurrentUser UserPrincipal currentUser){
+		List<Long> clickList = userservice.findVidByEid(currentUser.getId());
+		return new ResponseEntity<>(clickList, HttpStatus.OK);
+	}
     
 	
 	

@@ -16,11 +16,17 @@
                     <div class="input-group-prepend">
                       <div class="input-group-text"><em class="fas fa-user"></em></div>
                     </div>
-                    <input type='text' formControlName="firstName" class='form-control'
-                      [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" required placeholder="First Name"/>
-                  </div>
-                  <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
-                    <div *ngIf="f.firstName.errors.required">First Name is required</div>
+                        <input
+                        type='text'
+                        formControlName="firstName"
+                        class='form-control'
+                        [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"
+                        required
+                        placeholder="First Name"
+                        />
+                        <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                          <div *ngIf="f.firstName.errors.required">First Name is required</div>
+                        </div>
                   </div>
                 </div>
 
@@ -47,6 +53,7 @@
                     [ngClass]="{ 'is-invalid': submitted && f.email.errors }" required placeholder="Email" />
                   <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                     <div *ngIf="f.email.errors.required">Email is required</div>
+                    <div *ngIf="f.email.errors.email">Proper email address required</div>
                   </div>
                   </div>
               </div>
@@ -59,7 +66,7 @@
                           <div class="input-group-text"><em class="fas fa-lock"></em></div>
                           </div>
                   <input type='password' formControlName="password" class='form-control'
-                    [ngClass]="{ 'is-invalid': submitted && f.password.errors }" required placeholder="Password" />
+                    [ngClass]="{ 'is-invalid': submitted && f.password.errors }" required placeholder="Password"/>
                   <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
                     <div *ngIf="f.password.errors.required">Password is required</div>
                     <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
@@ -75,8 +82,8 @@
                   <input type="password" formControlName="confirmPassword" class="form-control"
                     [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" placeholder="Confirm Password">
                   <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
-                    <div *ngIf="f.confirmPassword.errors.required">Password is required</div>
-                    <div *ngIf="f.confirmPassword.errors.minlength">Password doesn't match</div>
+                    <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
+                    <div *ngIf="f.confirmPassword.errors.mustMatch">Password doesn't match</div>
                   </div>
                 </div>
                 </div>
@@ -97,7 +104,9 @@
                             <div class="input-group-text"><em class="fas fa-address-book"></em></div>
                             </div>
                   <input type='number' class='form-control' formControlName="phone"
-                    [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" placeholder="Phone" />
+                    [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" placeholder="Phone"
+                    pattern=".{10,11}"
+                    />
                   <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
                     <div *ngIf="f.phone.errors.required">Phone is required</div>
                   </div>
@@ -117,7 +126,7 @@
                   <option value='female'>Female</option>
                 </select>
                 <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
-                  <div *ngIf="f.gender.errors.required">Email is required</div>
+                  <div *ngIf="f.gender.errors.required">Gender is required</div>
                 </div>
                 </div>
               </div>
@@ -133,8 +142,8 @@
                   <option value='buser'>Business User</option>
                   <option value='nuser'>Normal User</option>
                 </select>
-                <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
-                  <div *ngIf="f.gender.errors.required">Email is required</div>
+                <div *ngIf="submitted && f.type.errors" class="invalid-feedback">
+                  <div *ngIf="f.type.errors.required">Role is required</div>
                 </div>
                 </div>
               </div>
@@ -146,6 +155,9 @@
                     </div>
               </div>
               <div class="row">
+                <div class="col">
+                  <a [routerLink]="['/login']" routerLinkActive="active" class="btn btn-outline-primary" >Login</a>
+                </div>
                   <div class="col">
                     <input type="reset" class='btn btn-outline-warning float-right' value='Reset' />
                   </div>

@@ -132,7 +132,8 @@ public class UserController {
 	{
 		//int v=Integer.parseInt(val);
 		System.out.println(val);
-		userService.updateUpCredits(user.getId(), val);
+		userService.
+		updateUpCredits(user.getId(), val);
 		return getCredits(user);
 		
 		
@@ -160,7 +161,7 @@ public class UserController {
 	public ResponseEntity<?> PerDayClickLimit(@CurrentUser UserPrincipal user) {
 		Long x=userService.getPerdayLimit(user.getId());
 		System.out.println("limit: "+x);
-		List<Long> clickLimit = new ArrayList<>();
+			List<Long> clickLimit = new ArrayList<>();
 		clickLimit.add(x);
 		return new ResponseEntity<>(clickLimit, HttpStatus.OK);
 	}
@@ -182,6 +183,7 @@ public class UserController {
 		
 		
 	}
-    
+	
+	
     
 }

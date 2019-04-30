@@ -75,19 +75,16 @@ export class OwnerDashboardComponent implements OnInit {
 
   submitAdvt() {
 
+    if (this.category !== undefined && this.brand !== undefined &&  this.product !== undefined  && this.desc !== undefined) {
+      
+      let date = new Date();
+      let fullDate = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
 
-    if (this.category !== undefined && this.brand !== undefined &&  this.product !== undefined && this.dop !== undefined && this.desc !== undefined) {
-      console.log('running');
-      // this.advtInfo = new Advertisement(
-      //   this.category,
-      //   this.product,
-      //   this.dop,
-      //   this.desc);
       let advtObj = {
         categoryadd: this.category,
         brand: this.brand,
         product: this.product,
-        dop: this.dop,
+        dop: fullDate,
         description: this.desc
       };
 
@@ -216,6 +213,11 @@ export class OwnerDashboardComponent implements OnInit {
         console.log(error);
       }
     );
+    this.category = '';
+      this.brand = '';
+      this.product = '';
+      this.dop = '';
+      this.desc = '';
   }
 
 
