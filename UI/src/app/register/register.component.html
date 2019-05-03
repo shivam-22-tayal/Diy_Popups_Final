@@ -26,6 +26,7 @@
                         />
                         <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
                           <div *ngIf="f.firstName.errors.required">First Name is required</div>
+                          <div *ngIf="f.firstName.errors.minlength">Must be atleast 3 Characters</div>
                         </div>
                   </div>
                 </div>
@@ -105,10 +106,12 @@
                             </div>
                   <input type='number' class='form-control' formControlName="phone"
                     [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" placeholder="Phone"
-                    pattern=".{10,11}"
+                    pattern=".{10,11}" title="Phone min 10 and max 11 digits"
                     />
                   <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
                     <div *ngIf="f.phone.errors.required">Phone is required</div>
+                    <div *ngIf="f.phone.errors.minlength">Phone must be min 10 digits</div>
+                    <div *ngIf="f.phone.errors.maxlength">Phone must be max 11 digits</div>
                   </div>
                 </div>
                 </div>

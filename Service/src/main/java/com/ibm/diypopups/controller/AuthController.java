@@ -89,6 +89,7 @@ public class AuthController {
         if(signUpRequest.getType().equalsIgnoreCase("nuser") || signUpRequest.getType().equalsIgnoreCase("normal")) {
         	System.out.println("Inside DownCredits");
         	user.setUpcredits(50);
+        	user.setWallet(0);
         }
        
         

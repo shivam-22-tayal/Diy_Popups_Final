@@ -15,8 +15,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { OwnerDashboardComponent } from './owner-dashboard/owner-dashboard.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
-import { CategoryAddComponent } from './user-dashboard/category-add/category-add.component';
-import { AllAdvtComponent } from './user-dashboard/all-advt/all-advt.component';
+
 
 @NgModule({
   declarations: [
@@ -28,9 +27,8 @@ import { AllAdvtComponent } from './user-dashboard/all-advt/all-advt.component';
     RegisterComponent,
     HomeComponent,
     OwnerDashboardComponent,
-    UserDashboardComponent,
-    CategoryAddComponent,
-    AllAdvtComponent
+    UserDashboardComponent
+
   ],
   imports: [
     BrowserModule,

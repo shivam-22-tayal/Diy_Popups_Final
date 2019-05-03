@@ -98,5 +98,9 @@ getVidClick(vid:number){
   );
 }
 
+viewBalance(){
 
+  return this.http.get<number>(`${this.config.apiUrl}/my/wallet`).
+  pipe(map(response=>response));
+}
 }

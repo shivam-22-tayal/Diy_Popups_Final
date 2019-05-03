@@ -59,8 +59,11 @@ public class User extends DateAudit {
     
     private int Upcredits;
     private int Downcredits;
+    private double wallet;
     
-    @Size(max = 10)
+    
+
+	@Size(max = 10)
     private String type;
     
 
@@ -174,5 +177,13 @@ public class User extends DateAudit {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+	
+	public double getWallet() {
+		return wallet;
+	}
+
+	public void setWallet(double wallet) {
+		this.wallet = wallet;
 	}
 }

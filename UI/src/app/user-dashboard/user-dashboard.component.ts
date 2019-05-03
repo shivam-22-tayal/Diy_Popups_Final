@@ -26,6 +26,7 @@ export class UserDashboardComponent implements OnInit {
   adclicklimit: number;
 
   clickList: number[];
+  walletBalance:number;
 
   messageStatus: string;
 
@@ -54,6 +55,7 @@ export class UserDashboardComponent implements OnInit {
     this.findPerdayClicks();
 
     this.getClickList();
+    this.WalletCheck();
 
   }
 
@@ -171,14 +173,39 @@ export class UserDashboardComponent implements OnInit {
   }
   reedemFunc() {
     console.log(this.reedemAmount);
+
+    if(this.reedemAmount>0 && this.credits>0 && this.reedemAmount<=this.credits){
+      alert("Amount Reedemed Successfully...!!!");
+
+    }
+
+
+    if( this.reedemAmount >this.credits){
+      alert("Insufficient Credits...!!!");
+      return;
+    }
     this.userService.updateUpcredits(this.reedemAmount).subscribe(
+
       data => {
+
         this.credits = data;
+        if(this.reedemAmount<=0){
+          alert("Please Enter A Valid Amount");
+          return;
+        }
+
+
+
+
       },
       error => {
         console.log(error);
       }
     );
+    /*if(this.credits==0 ){
+      alert("Insufficient Credits...!!!");
+      return;
+    }*/
   }
 
   findPerdayClicks() {
@@ -275,5 +302,12 @@ export class UserDashboardComponent implements OnInit {
       return flag;
     }
   }
+
+WalletCheck(){
+
+  return this.userService.viewBalance().subscribe(data=>{console.log(data);this.walletBalance=data;},
+    err=>{console.log(err);}
+    );
+}
 
 }

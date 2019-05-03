@@ -7,13 +7,13 @@ import { AuthGuard } from './_guards/auth.guard';
 import { OwnerDashboardComponent } from './owner-dashboard/owner-dashboard.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { HomeComponent } from './home/home.component';
-import { AllAdvtComponent } from './user-dashboard/all-advt/all-advt.component';
-import { CategoryAddComponent } from './user-dashboard/category-add/category-add.component';
+
 
 const routes: Routes = [
   {path: '', component: LandingpageComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
+  {path: 'landingpage', component: LandingpageComponent},
   {path: 'owner-dashboard', component: OwnerDashboardComponent, canActivate: [AuthGuard] },
   {path: 'user-dashboard', component: UserDashboardComponent, canActivate: [AuthGuard], children: [
     // {path: 'advts', component: AllAdvtComponent},

@@ -204,9 +204,14 @@ export class OwnerDashboardComponent implements OnInit {
 
   rechargeFunc() {
     console.log(this.rechargeAmount);
+    if(this.rechargeAmount<0){
+      alert("Please Enter A Valid Amount");
+      return;
+    }
     this.userService.updateDowncredits(this.rechargeAmount).subscribe(
       data => {
         this.downcredits = data;
+
       },
       error => {
 

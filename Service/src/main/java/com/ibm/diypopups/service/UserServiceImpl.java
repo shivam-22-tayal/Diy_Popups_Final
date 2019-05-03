@@ -89,21 +89,29 @@ public class UserServiceImpl {
 		User eu;
 		
 		eu=userRepo.findById(id).get();
+		if(val>=0) {
 		eu.setDowncredits(eu.getDowncredits()+val);
+		}
 		userRepo.save(eu);
+		
 		
 		
 	}
 	
 public void updateUpCredits(long id,int val) {
 		
-		User eu;
-		
-		eu=userRepo.findById(id).get();
-		if(eu.getUpcredits()>=val) {
-		eu.setUpcredits(eu.getUpcredits()-val);
-		}
-		userRepo.save(eu);
+	User eu;
+	
+	eu=userRepo.findById(id).get();
+	
+	if(eu.getUpcredits()>=val && val>=0) {
+	eu.setUpcredits(eu.getUpcredits()-val);
+	double amount=eu.getWallet();
+	amount+=val*0.50;
+	System.out.println(amount);
+	eu.setWallet(amount);
+	}
+	userRepo.save(eu);
 		
 		
 	}

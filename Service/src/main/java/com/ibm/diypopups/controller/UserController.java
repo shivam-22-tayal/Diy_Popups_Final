@@ -184,6 +184,16 @@ public class UserController {
 		
 	}
 	
+	@CrossOrigin(origins="*")
+	@GetMapping("/my/wallet")
+	
+	public double getBalance(@CurrentUser UserPrincipal user)
+	{
+		User u=userRepo.findById(user.getId()).get();
+		System.out.println(u.getWallet());
+		return u.getWallet();
+		
+	}
 	
     
 }
